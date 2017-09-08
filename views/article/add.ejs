@@ -1,0 +1,81 @@
+<%- include('../layouts/header.ejs') %>
+
+  <link rel="stylesheet" type="text/css" href="/src/css/mditor.min.css">
+  <script src="/src/js/mditor.min.js"></script>
+
+  <div class="container">
+    <h1>文章添加页</h1>    
+    <form>
+      <div class="form-group">
+        <label for="">文章标题：</label>
+        <input type="text" name="title" id="title" class="form-control" max="50" required>
+      </div>
+
+      <p class="text-danger error"></p>
+
+      <div class="form-group">
+        <label for="">标题标签：html,css,node</label>
+        <input type="text" name="tag" id="tag" class="form-control" max="50" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="">文章类别</label><br>
+        <select name="categoryid" required id="categoryid">
+            <option value="">---</option>
+            <option value="1">技术随记</option>
+            <option value="2">生活随记</option>
+            <option value="3">记录随记</option>
+            <option value="4">个人随记</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="">文章内容：</label>
+        <textarea rows="" name="content" class="form-control" id="editor" style="display:none;"></textarea>
+      </div>
+      <div class="form-group">        
+        <a href="javascript:;" id="btn" class="derter">发表文章</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    $(function () {
+      var mditor = Mditor.fromTextarea(document.getElementById('editor'));
+
+      $('#btn').on('click', function () {
+        var title = $.trim($('#title').val());
+        var content = mditor.value;
+        var tag = $.trim($('#tag').val());
+        var categoryid = $('#categoryid option:selected').val();
+        if (title.length <= 0) {
+          while (true) {
+            $('.error').html('标题不能为空')
+          }
+          return;
+        }
+        $.ajax({
+          url: '/addarticle',
+          data: {
+            title: title,
+            content: content,
+            tag:tag,
+            categoryid:parseInt(categoryid),
+            authorId: '<%= user.id %>'
+          },
+          type: 'post',
+          dataType: 'json',
+          success: function (results) { 
+            console.log(results)           
+            if (results.err_code === 0) {
+              location.href = '/article/info?id=' + results.id;
+            } else {
+              $('.error').html('标题不能为空')
+            }
+          }
+        });
+      });
+    });
+  </script>
+
+  <%- include('../layouts/footer.ejs') %>

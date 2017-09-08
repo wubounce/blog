@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>博客</title> 
+  <link rel="stylesheet" href="/src/css/style.css">
+  <script src="/src/js/jquery.min.js"></script>
+</head>
+
+<body>
+ <nav id="navigation" class="nav-primary" role="navigation">
+    <div class="wrap">
+        <a href="#" id="menu-icon" class="menu-icon"><span></span></a>
+        <ul id="menu-short" class="menu omega-nav-menu menu-primary">
+            <li class="menu-item"><a href="/">Home</a></li>            
+            <li class="menu-item"><a href="#">Theme Layout</a></li>
+            <li class="menu-item"><a href="#">Blog</a></li>
+        </ul>
+        <div class="navbar-right">        
+            <% if(!islogin){ %>
+            <div class="navbar-form navbar-right">
+              <a href="/register" class="btn btn-success">注册</a>
+              <a href="/login" class="btn btn-primary">登录</a>
+            </div>
+            <% } else {%>        
+            <div class="navbar-form navbar-right">
+              <a href="/article/add">发表文章</a>
+              <a href="javascriot:;" class="btn btn-warning">欢迎&nbsp;<strong><%= user.nickname %></strong></a>
+              <a href="/logout" class="btn btn-danger">注销</a>
+              
+            </div>        
+           
+            <% } %>
+          </div>
+    </div>
+</nav>
+
+<header id="header" class="site-header" role="banner" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+    <div class="wrap">
+        <div class="title-area">
+            <h1 class="site-title" itemprop="headline"><a href="http://themehall.com/preview/omega" title="OMEGA" rel="home"><font><font>OMEGA</font></font></a></h1>
+            <h3 class="site-description"><span><font><font>响应WordPress主题</font></font></span></h3></div>
+    </div>
+</header>

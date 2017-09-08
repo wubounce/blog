@@ -1,0 +1,28 @@
+{
+  "name": "heima_blog0714",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ax-json-tree": "^1.0.0",
+    "blueimp-md5": "^2.7.0",
+    "body-parser": "^1.17.2",
+    "bootstrap": "^3.3.7",
+    "compression": "^1.7.0",
+    "ejs": "^2.5.6",
+    "express": "^4.15.3",
+    "express-session": "^1.15.3",
+    "jquery": "^3.2.1",
+    "markdown": "^0.5.0",
+    "mditor": "^1.2.9",
+    "moment": "^2.18.1",
+    "mysql": "^2.13.0",
+    "treeize": "^2.1.0"
+  }
+}

@@ -1,0 +1,96 @@
+<%- include('./layouts/header.ejs') %>
+
+
+<div class="container">   
+    <div class="site-inner">
+	    <div class="wrap">
+	        <main class="articlelist">
+	        	<% result.forEach(item=>{ %>
+	            <article class="entry">
+	                <div class="entry-wrap">
+	                    <header class="entry-header">
+	                        <h2 class="entry-title"><a href="/article/info?id=<%= item.id %>"><%= item.title %></a></h2>
+	                        <div class="entry-meta">
+	                            <time class="entry-time"><%= item.createTime %></time>
+	                            <span class="entry-author">---<%= item.nickname %></span>
+	                        </div>
+	                    </header>	                   
+	                    <div class="entry-summary">
+	                        <a href="/article/info?id=<%= item.id %>"><img width="700" height="395" src="http://themehall.com/preview/omega/wp-content/uploads/sites/5/2015/01/omega-mobile.jpg"></a>
+	                        <div class="desc">
+	                        	<%- item.content.substring(0,200).replace("js", "") %>
+	                            <span class="more"><a class="more-link" href="/article/info?id=<%= item.id %>">[阅读更多...]</a></span>
+	                        </div>                     
+	                        
+	                    </div>
+	                    <footer class="entry-footer">
+	                         <div class="entry-meta">
+	                            <span class="entry-terms category">
+	                           		<a href="javascript:;" rel="tag">标记 标签：<%= item.tag %></a>
+	                            </span>
+	                        </div>
+	                    </footer>
+	                </div>
+	            </article>
+	           	<% }) %>           	
+
+	            <nav role="navigation" id="nav-below" class="navigation  paging-navigation">
+					<nav class="pagination loop-pagination">
+						<a class="prev page-numbers" href="/?page=<%= currentPage===1?1:currentPage-1 %>" >« Previous</a>
+
+						<% for(var i = 0; i < totalPage; i++){ %>
+						<a class="page-numbers <%= currentPage===(i+1)?'current':'' %>" href="/?page=<%= (i+1) %>"> <%= (i+1) %></a>
+				         <% } %>
+
+						<a class="next page-numbers" href="/?page=<%= currentPage===totalPage?totalPage:currentPage+1 %>">Next »</a>
+					</nav>
+				</nav>	          
+	        </main>	      
+	        <aside id="sidebar" class="sidebar sidebar-primary widget-area">
+	            <section class="widget">
+	                <div class="widget-wrap">
+	                    <h4 class="widget-title">WordPress搜</h4>
+	                    <form action="/search" method="GET">	                    
+	                    	<input type="search" class="search-field" placeholder="Search ..." value="" name="search" title="搜索：" id="search">
+	                    </form>	                       
+	                    
+	                </div>
+	            </section>
+	              
+	            <section class="widget">
+	                <div class="widget-wrap">
+	                    <h4 class="widget-title">技术类</h4>
+	                    <ul>
+	                        <li>
+	                            <a href="#">WordPress</a>
+	                        </li> 
+	                        <li>
+	                            <a href="#">WordPress</a>
+	                        </li>                        
+	                        <li>
+	                            <a href="#">WordPress</a>
+	                        </li>
+	                    </ul>
+	                </div>
+	            </section>
+	            <section class="widget">
+	                <div class="widget-wrap">
+	                    <h4 class="widget-title">生活类</h4>
+	                    <ul>
+	                        <li>
+	                            <a href="#">WordPress</a>
+	                        </li> 
+	                        <li>
+	                            <a href="#">WordPress</a>
+	                        </li>                        
+	                        <li>
+	                            <a href="#">WordPress</a>
+	                        </li>
+	                    </ul>
+	                </div>
+	            </section>
+	        </aside>
+	    </div>
+	</div>
+</div>
+<%- include('./layouts/footer.ejs') %>

@@ -1,0 +1,76 @@
+<%- include('../layouts/header.ejs') %>
+
+  <link rel="stylesheet" type="text/css" href="/src/css/mditor.min.css">
+  <script src="/src/js/mditor.min.js"></script>
+
+  <div class="container">
+    <h1>文章添加页</h1> 
+    <form>
+      <div class="form-group">
+        <label for="">文章标题：</label>
+        <input type="text" name="title" class="form-control" max="50" id="title" required value="<%= article.title %>">
+      </div>
+      <p class="text-danger error"></p>
+      <div class="form-group">
+        <label for="">标题标签：html,css,node</label>
+        <input type="text" name="title" class="form-control" max="50" id="tag" required value="<%= article.tag %>">
+      </div>
+
+      <div class="form-group">
+        <label for="">文章类别</label><br>
+        <select name="categoryid" required id="categoryid">        
+          <option value="1" <%= article.categoryid===1?'selected':'' %>>技术随记</option>  
+          <option value="2" <%= article.categoryid===2?'selected':'' %>>生活随记</option> 
+          <option value="3" <%= article.categoryid===3?'selected':'' %>>记录随记</option>
+          <option value="4" <%= article.categoryid===4?'selected':'' %>>个人随记</option>            
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="">文章内容：</label>
+        <textarea rows="" name="content" class="form-control" id="editor" style="display:none;"><%= article.content %></textarea>
+      </div>
+
+      <div class="form-group clearfix">
+        <a href="javascript:;" id="btn" class="derter">发表文章</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    $(function () {
+      var mditor = Mditor.fromTextarea(document.getElementById('editor'));
+
+      $('#btn').on('click', function () {
+        var title = $('#title').val();
+        var content = mditor.value;
+        var tag = $.trim($('#tag').val());
+        var categoryid = $('#categoryid option:selected').val()
+
+        $.ajax({
+          url: '/article/doedit',
+          data: {
+            title: title,
+            content: content,
+            tag:tag,
+            categoryid:parseInt(categoryid),
+            authorId: '<%= user.id %>',
+            id:'<%= article.id %>'
+          },
+          type: 'post',
+          dataType: 'json',
+          success: function (results) {
+            // { err_code:1, msg:'消息' }
+            // { err_cocde:0, id:1 }
+            if (results.err_code === 0) { // 表示修改成功
+              location.href = '/article/info?id=<%= article.id %>';
+            } else { // 修改失败
+              alert(results.msg);
+            }
+          }
+        });
+      });
+    });
+  </script>
+
+  <%- include('../layouts/footer.ejs') %>
